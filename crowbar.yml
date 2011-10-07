@@ -19,6 +19,8 @@ barclamp:
   name: ntp
   display: NTP
   version: 0
+  member:
+    - crowbar
 
 crowbar:
   layout: 1
