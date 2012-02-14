@@ -10,6 +10,10 @@
   "deployment": {
     "ntp": {
       "crowbar-revision": 0,
+      "element_states": {
+        "ntp-server": [ "readying", "ready", "applying" ],
+        "ntp-client": [ "readying", "ready", "applying" ]
+      },
       "elements": {},
       "element_order": [
         [ "ntp-server", "ntp-client" ]
