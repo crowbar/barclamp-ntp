@@ -23,7 +23,7 @@ if node["roles"].include?("ntp-client")
     servers = search(:node, "roles:ntp\\-server#{env_filter}")
   end
   ntp_servers = nil
-  ntp_servers = servers.map {|n| Ntp::Evaluator.get_value_by_type(n, :admin_ip_eval) } unless servers.nil?
+  ntp_servers = servers.map {|n| n["fqdn"] } unless servers.nil?
 else
   ntp_servers = node[:ntp][:external_servers]
 end
