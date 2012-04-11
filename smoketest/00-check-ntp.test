@@ -22,7 +22,7 @@ ntp_nodes="$(knife_node_find 'roles:ntp-client' FQDN )"
     exit 1
 }
 
-admin_node="$(knife_node_find  "roles:ntp-server" IP )"
+admin_node="$(knife_node_find  "roles:ntp-server" FQDN )"
 
 for node in $ntp_nodes; do
     if run_on "$node" pidof ntpd &>/dev/null; then
