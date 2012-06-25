@@ -4,7 +4,7 @@
   "attributes": {
     "ntp": {
       "external_servers": [ ],
-      "admin_ip_eval": "Chef::Recipe::Barclamp::Inventory.get_network_by_type(node, \"admin\").address"
+      "admin_ip_eval": "node.address.addr"
     }
   },
   "deployment": {
