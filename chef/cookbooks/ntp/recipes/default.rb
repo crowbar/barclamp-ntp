@@ -14,7 +14,7 @@
 #
 
 package "ntp" do
-    action :install
+    action :upgrade
 end
 
 if node["roles"].include?("ntp-client")
