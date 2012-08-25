@@ -14,8 +14,5 @@
 # 
 
 class NtpController < BarclampController
-  def initialize
-    @service_object = NtpService.new logger
-  end
 end
 
