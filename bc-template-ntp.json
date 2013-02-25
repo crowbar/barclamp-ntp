@@ -3,8 +3,7 @@
   "description": "Common NTP service for the cluster. An NTP server or servers can be specified and all other nodes will be clients of them.",
   "attributes": {
     "ntp": {
-      "external_servers": [ ],
-      "admin_ip_eval": "node.address.addr"
+      "external_servers": [ ]
     }
   },
   "deployment": {
