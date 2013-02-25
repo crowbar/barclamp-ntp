@@ -16,8 +16,7 @@
               "type": "seq",
               "required": true,
               "sequence": [ { "type": "str" } ]
-            },
-            "admin_ip_eval": { "type": "str", "required": true }
+            }
           }
         }
       }
