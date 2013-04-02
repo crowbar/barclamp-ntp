@@ -1,0 +1,17 @@
+{
+    "type": "map",
+    "required": true,
+    "mapping": {
+        "ntp": {
+            "type": "map",
+            "required": true,
+            "mapping": {
+                "external_servers": {
+                    "type": "seq",
+                    "required": true,
+                    "sequence": [ { "type": "str" } ]
+                }
+            }
+        }
+    }
+}

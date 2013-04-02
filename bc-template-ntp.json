@@ -6,6 +6,10 @@
       "external_servers": [ ]
     }
   },
+  "roles": {
+      "ntp-client": { "implicit": true, "jig": "chef" },
+      "ntp-server": { "admin_implicit": true, "jig": "chef" }
+  },
   "deployment": {
     "ntp": {
       "crowbar-revision": 0,
