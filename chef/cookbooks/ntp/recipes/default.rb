@@ -28,13 +28,17 @@ else
   ntp_servers = node[:ntp][:external_servers]
 end
 
+driftfile = "/var/lib/ntp/ntp.drift"
+driftfile = "/var/lib/ntp/drift/ntp.drift" if node[:platform] == "suse"
+
 user "ntp"
 template "/etc/ntp.conf" do
   owner "root"
   group "root"
   mode 0644
   source "ntp.conf.erb"
-  variables(:ntp_servers => ntp_servers)
+  variables(:ntp_servers => ntp_servers,
+            :driftfile => driftfile)
   notifies :restart, "service[ntp]"
 end
 
