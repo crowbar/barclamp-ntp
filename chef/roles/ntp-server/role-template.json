@@ -1,0 +1,35 @@
+{
+  "id": "bc-template-ntp",
+  "description": "Common NTP service for the cluster. An NTP server or servers can be specified and all other nodes will be clients of them.",
+  "attributes": {
+    "ntp": {
+      "external_servers": [ ]
+    }
+  },
+  "roles": {
+      "ntp-client": { "implicit": true, "jig": "chef" },
+      "ntp-server": { "admin_implicit": true, "jig": "chef" }
+  },
+  "deployment": {
+    "ntp": {
+      "crowbar-revision": 0,
+      "element_states": {
+        "ntp-server": [ "readying", "ready", "applying" ],
+        "ntp-client": [ "readying", "ready", "applying" ]
+      },
+      "elements": {},
+      "element_order": [
+        [ "ntp-server", "ntp-client" ]
+      ],
+      "config": {
+        "environment": "ntp-base-config",
+        "mode": "full",
+        "transitions": true,
+        "transition_list": [
+          "discovered"
+        ]
+      }
+    }
+  }
+}
+
