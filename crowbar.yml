@@ -26,11 +26,6 @@ barclamp:
   member:
     - crowbar
 
-jigs:
-  chef:
-    - ntp-client
-    - ntp-server
-
 crowbar:
   layout: 2.0
   order: 50
