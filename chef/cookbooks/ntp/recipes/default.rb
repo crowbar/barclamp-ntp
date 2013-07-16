@@ -32,23 +32,21 @@ if node[:platform]=="windows"
   end
 
   ntplist=""
-  if ntp_servers.nil? or ntp_servers.empty?
-    ntplist = "ntp.pool.org,0x1"
-  else
+  unless ntp_servers.nil? or ntp_servers.empty?
     ntp_servers.each do |ntpserver|
       ntplist += "#{ntpserver},0x1 "
     end
-  end
-  execute "update_timezone" do
-    command "w32tm.exe /config /manualpeerlist:\"ntplist\" /syncfromflags:MANUAL"
-  end
+    execute "update_timezone" do
+      command "w32tm.exe /config /manualpeerlist:\"ntplist\" /syncfromflags:MANUAL"
+    end
 
-  execute "update_timezone" do
-    command "w32tm.exe /config /update"
-  end
+    execute "update_timezone" do
+      command "w32tm.exe /config /update"
+    end
 
-  service "w32time" do
-    action :start
+    service "w32time" do
+      action :start
+    end
   end
 
 else
