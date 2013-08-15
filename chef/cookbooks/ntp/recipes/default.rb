@@ -13,10 +13,6 @@
 # limitations under the License.
 #
 
-package "ntp" do
-    action :install
-end
-
 if node["roles"].include?("ntp-client")
   unless Chef::Config[:solo]
     env_filter = " AND environment:#{node[:ntp][:config][:environment]}"
@@ -28,33 +24,65 @@ else
   ntp_servers = node[:ntp][:external_servers]
 end
 
-driftfile = "/var/lib/ntp/ntp.drift"
-driftfile = "/var/lib/ntp/drift/ntp.drift" if node[:platform] == "suse"
+if node[:platform]=="windows"
+  #for windows
 
-user "ntp"
-template "/etc/ntp.conf" do
-  owner "root"
-  group "root"
-  mode 0644
-  source "ntp.conf.erb"
-  variables(:ntp_servers => ntp_servers,
+  service "w32time" do
+    action :stop
+  end
+
+  ntplist=""
+  unless ntp_servers.nil? or ntp_servers.empty?
+    ntp_servers.each do |ntpserver|
+      ntplist += "#{ntpserver},0x1 "
+    end
+    execute "update_timezone" do
+      command "w32tm.exe /config /manualpeerlist:\"ntplist\" /syncfromflags:MANUAL"
+    end
+
+    execute "update_timezone" do
+      command "w32tm.exe /config /update"
+    end
+
+    service "w32time" do
+      action :start
+    end
+  end
+
+else
+  #for linux
+  package "ntp" do
+    action :install
+  end
+
+  driftfile = "/var/lib/ntp/ntp.drift"
+  driftfile = "/var/lib/ntp/drift/ntp.drift" if node[:platform] == "suse"
+
+  user "ntp"
+  template "/etc/ntp.conf" do
+    owner "root"
+    group "root"
+    mode 0644
+    source "ntp.conf.erb"
+    variables(:ntp_servers => ntp_servers,
             :driftfile => driftfile)
-  notifies :restart, "service[ntp]"
-end
+    notifies :restart, "service[ntp]"
+  end
 
-#
-# Make sure the ntpdate helper is removed to speed up network restarts
-# This script manages ntp for the client
-#
-file "/etc/network/if-up.d/ntpdate" do
-  action :delete
-end if ::File.exists?("/etc/network/if-up.d/ntpdate")
+  #
+  # Make sure the ntpdate helper is removed to speed up network restarts
+  # This script manages ntp for the client
+  #
+  file "/etc/network/if-up.d/ntpdate" do
+    action :delete
+  end if ::File.exists?("/etc/network/if-up.d/ntpdate")
 
-service "ntp" do
-  service_name "ntpd" if node[:platform] =~ /^(centos|redhat)$/
-  supports :restart => true, :status => true, :reload => true
-  running true
-  enabled true
-  action [ :enable, :start ]
+  service "ntp" do
+    service_name "ntpd" if node[:platform] =~ /^(centos|redhat)$/
+    supports :restart => true, :status => true, :reload => true
+    running true
+    enabled true
+    action [ :enable, :start ]
+  end
 end
 
