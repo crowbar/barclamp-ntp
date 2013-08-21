@@ -18,7 +18,7 @@ server 127.127.1.0
 fudge 127.127.1.0 stratum 1
 <% else -%>
 <% @ntp_servers.each do |ntp_server| -%>
-server <%= ntp_server %>
+server <%= ntp_server %> iburst minpoll 4
 <% end -%>
 <% end -%>
 
