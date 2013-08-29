@@ -32,7 +32,7 @@ for node in $ntp_nodes; do
         exit 1
     fi
 
-    if run_on "$node"  grep "^server\ $admin_node$" /etc/ntp.conf &>/dev/null; then
+    if run_on "$node"  grep "^server\ $admin_node " /etc/ntp.conf &>/dev/null; then
         echo "$(date '+%F %T %z'): Ntp is pointed to the correct ntp server on node $node."
     else
         echo "$(date '+%F %T %z'): Ntp is NOT pointed to the correct ntp server on node $node."
