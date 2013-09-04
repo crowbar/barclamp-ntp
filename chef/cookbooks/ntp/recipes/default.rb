@@ -17,15 +17,14 @@ package "ntp" do
     action :install
 end
 
-if node["roles"].include?("ntp-client")
-  unless Chef::Config[:solo]
-    env_filter = " AND environment:#{node[:ntp][:config][:environment]}"
-    servers = search(:node, "roles:ntp\\-server#{env_filter}")
+if node["roles"].include?("ntp-server")
+  ntp_servers = node[:crowbar][:ntp][:external_servers]
+  unless node[:crowbar][:ntp][:servers] &&
+      node[:crowbar][:ntp][:servers].include?(node.address.addr)
+    node.set[:crowbar][:ntp][:servers] = [ node.address.addr ]
   end
-  ntp_servers = nil
-  ntp_servers = servers.map {|n| n["fqdn"] } unless servers.nil?
 else
-  ntp_servers = node[:ntp][:external_servers]
+  ntp_servers = node[:crowbar][:ntp][:servers]
 end
 
 user "ntp"

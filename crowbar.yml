@@ -32,6 +32,22 @@ crowbar:
   run_order: 50
   chef_order: 50
 
+roles:
+  - name: ntp-server
+    jig: chef
+    requires:
+      - dns-client
+      - network-admin
+    flags:
+      - bootstrap
+  - name: ntp-client
+    jig: chef
+    requires:
+      - ntp-server
+      - network-admin
+    flags:
+      - discovery
+
 debs:
   pkgs:
     - ntp
