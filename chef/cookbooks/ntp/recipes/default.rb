@@ -21,7 +21,7 @@ if node["roles"].include?("ntp-server")
   ntp_servers = node[:crowbar][:ntp][:external_servers]
   unless node[:crowbar][:ntp][:servers] &&
       node[:crowbar][:ntp][:servers].include?(node.address.addr)
-    node.set[:crowbar][:ntp][:servers] = [ node.address.addr ]
+    node.set[:crowbar][:ntp][:servers] = node.addresses("admin").map{|a|a.addr}
   end
 else
   ntp_servers = node[:crowbar][:ntp][:servers]
