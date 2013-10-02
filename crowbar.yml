@@ -43,6 +43,7 @@ roles:
   - name: ntp-client
     jig: chef
     requires:
+      - dns-client
       - ntp-server
       - network-admin
     flags:
