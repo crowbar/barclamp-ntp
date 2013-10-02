@@ -15,7 +15,7 @@
 
 package "ntp" do
     action :install
-end
+end unless Kernel.system("which ntpd")
 
 if node["roles"].include?("ntp-server")
   ntp_servers = node[:crowbar][:ntp][:external_servers]
