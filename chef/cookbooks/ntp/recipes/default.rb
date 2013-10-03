@@ -52,4 +52,3 @@ service "ntp" do
   enabled true
   action [ :enable, :start ]
 end
-
