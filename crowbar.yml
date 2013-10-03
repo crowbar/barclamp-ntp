@@ -40,9 +40,11 @@ roles:
       - network-admin
     flags:
       - bootstrap
+      - server
   - name: ntp-client
     jig: chef
     requires:
+      - dns-client
       - ntp-server
       - network-admin
     flags:
