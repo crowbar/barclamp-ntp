@@ -27,25 +27,26 @@ end
 if node[:platform]=="windows"
   #for windows
 
-  service "w32time" do
-    action :stop
-  end
-
-  ntplist=""
   unless ntp_servers.nil? or ntp_servers.empty?
+    ntplist=""
     ntp_servers.each do |ntpserver|
       ntplist += "#{ntpserver},0x1 "
     end
-    execute "update_timezone" do
-      command "w32tm.exe /config /manualpeerlist:\"ntplist\" /syncfromflags:MANUAL"
-    end
-
-    execute "update_timezone" do
-      command "w32tm.exe /config /update"
+    execute "update ntp list for w32tm" do
+      command "w32tm.exe /config /manualpeerlist:\"" + ntplist + "\" /syncfromflags:MANUAL"
     end
 
     service "w32time" do
       action :start
+    end
+
+    # in case the service was already started, tell it the config has changed
+    execute "tell w32tm about updated config" do
+      command "w32tm.exe /config /update"
+    end
+  else
+    service "w32time" do
+      action :stop
     end
   end
 
