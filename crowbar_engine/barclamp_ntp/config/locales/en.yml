@@ -13,9 +13,7 @@
 # limitations under the License.
 #
 en:
-  barclamp:
-    ntp:
-      edit_attributes: 
-        attributes: Attributes
-      edit_deployment: 
-        deployment: Deployment
+  barclamp_ntp:
+    node_roles:
+      ntp-server:
+        external_servers: "External Servers"
