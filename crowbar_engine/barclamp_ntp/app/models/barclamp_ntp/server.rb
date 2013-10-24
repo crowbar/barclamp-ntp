@@ -16,22 +16,11 @@
 require 'json'
 class BarclampNtp::Server < Role
   
-  # update just one value in the template (assumes just 1 level deep!)
-  # use via /api/v2/roles/[role]/template/[key]/[value]
-  def update_template(key, value)
-    raw = read_attribute("template")
-    d = raw.nil? ? {} : JSON.parse(raw)
-    case key
-      when "external_servers"
-        t = { :"crowbar"=> { :"ntp" => { :"external_servers" => value } }}
-    end  
-    if t
-      merged = d.deep_merge(t)
-      self.template = JSON.generate(merged)
-      self.save!
-    else
-      Rails.logger.warn "BarclampNtp did not update template for key #{key} because no match was found"
-    end
+
+  # used generically by the update_template
+  # must match the name of the key
+  def external_servers(value)
+    { :"crowbar"=> { :"ntp" => { :"external_servers" => value } }}
   end
 
 end
