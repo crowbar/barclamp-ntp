@@ -39,7 +39,6 @@ roles:
       - dns-client
       - network-admin
     flags:
-      - bootstrap
       - server
   - name: ntp-client
     jig: chef
@@ -48,8 +47,7 @@ roles:
       - ntp-server
       - network-admin
     flags:
-      - discovery
-
+      - implicit
 debs:
   pkgs:
     - ntp
