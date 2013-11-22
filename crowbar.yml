@@ -34,14 +34,14 @@ crowbar:
 
 roles:
   - name: ntp-server
-    jig: chef
+    jig: chef-solo
     requires:
       - dns-client
       - network-admin
     flags:
       - server
   - name: ntp-client
-    jig: chef
+    jig: chef-solo
     requires:
       - dns-client
       - ntp-server
