@@ -40,6 +40,10 @@ roles:
       - network-admin
     flags:
       - server
+    attribs:
+      - name: ntp_servers
+        description: "Addresses of the NTP servers to use for cluster-wide time synchronization"
+        map: 'crowbar/ntp/servers'
   - name: ntp-client
     jig: chef-solo
     requires:
@@ -48,6 +52,8 @@ roles:
       - network-admin
     flags:
       - implicit
+    wants-attribs:
+      - ntp_servers
 debs:
   pkgs:
     - ntp
