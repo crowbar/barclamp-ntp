@@ -17,24 +17,19 @@
 # Author: SUSE LINUX Products GmbH
 #
 
-barclamp:
-  name: ntp
-  display: NTP
-  version: 0
-  member:
-    - crowbar
-
-crowbar:
-  layout: 1
-  order: 50
-  run_order: 50
-  chef_order: 50
-  proposal_schema_version: 2
-
-debs:
-  pkgs:
-    - ntp
-
-rpms:
-  pkgs:
-    - ntp
+module NtpBarclampHelper
+  def ntp_role_contraints
+    {
+      "ntp-server" => {
+        "unique" => true,
+        "count" => 1,
+        "admin" => true
+      },
+      "ntp-client" => {
+        "unique" => true,
+        "count" => -1,
+        "admin" => true
+      }
+    }
+  end
+end

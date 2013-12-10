@@ -17,24 +17,8 @@
 # Author: SUSE LINUX Products GmbH
 #
 
-barclamp:
-  name: ntp
-  display: NTP
-  version: 0
-  member:
-    - crowbar
-
-crowbar:
-  layout: 1
-  order: 50
-  run_order: 50
-  chef_order: 50
-  proposal_schema_version: 2
-
-debs:
-  pkgs:
-    - ntp
-
-rpms:
-  pkgs:
-    - ntp
+en:
+  barclamp:
+    ntp:
+      edit_attributes:
+        external_servers: External servers
