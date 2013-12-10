@@ -1,10 +1,11 @@
-# Copyright 2011, Dell
+# Copyright 2011-2013, Dell
+# Copyright 2013, SUSE LINUX Products GmbH
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#  http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,35 +13,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Author: RobHirschfeld
+# Author: Dell Crowbar Team
+# Author: SUSE LINUX Products GmbH
 #
 
-barclamp:
-  name: ntp
-  display: NTP
-  version: 0
-  member:
-    - crowbar
-
-crowbar:
-  layout: 1
-  order: 50
-  run_order: 50
-  chef_order: 50
-  proposal_schema_version: 2
-
-locale_additions:
-  en:
-    barclamp:
-      ntp:
-        edit_attributes: 
-          external_servers: External servers
-          ip_list_hint: A comma-separated list of IP Addresses
-
-debs:
-  pkgs:
-    - ntp
-
-rpms:
-  pkgs:
-    - ntp
+module NtpBarclampHelper
+  def ntp_role_contraints
+    {
+      "ntp-server" => {
+        "unique" => true,
+        "count" => 1,
+        "admin" => true
+      },
+      "ntp-client" => {
+        "unique" => true,
+        "count" => -1,
+        "admin" => true
+      }
+    }
+  end
+end
