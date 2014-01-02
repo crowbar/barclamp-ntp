@@ -53,7 +53,8 @@ roles:
     flags:
       - implicit
     wants-attribs:
-      - ntp_servers
+      - name: ntp_servers
+        at: 'crowbar/ntp/servers'
 debs:
   pkgs:
     - ntp
