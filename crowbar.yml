@@ -38,8 +38,6 @@ roles:
     requires:
       - dns-client
       - network-admin
-    flags:
-      - server
     attribs:
       - name: ntp_servers
         description: "Addresses of the NTP servers to use for cluster-wide time synchronization"
