@@ -14,7 +14,7 @@ filegen clockstats file clockstats type day enable
 
 # You do need to talk to an NTP server or two (or three).
 <% if @ntp_servers.nil? or @ntp_servers.empty? -%>
-server 127.127.1.0
+server 127.127.1.0 minpoll 3 burst
 fudge 127.127.1.0 stratum 1
 <% else -%>
 <% @ntp_servers.each do |ntp_server| -%>
