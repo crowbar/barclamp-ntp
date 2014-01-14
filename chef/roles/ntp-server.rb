@@ -1,9 +1,7 @@
-
 name "ntp-server"
-description "NTP Servier Role - NTP master for the cloud"
+description "NTP Server Role - NTP master for the cloud"
 run_list(
-         "recipe[ntp]"
+  "recipe[ntp]"
 )
 default_attributes()
 override_attributes()
-
