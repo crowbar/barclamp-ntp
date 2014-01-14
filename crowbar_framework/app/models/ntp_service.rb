@@ -16,8 +16,8 @@
 class NtpService < ServiceObject
 
   def initialize(thelogger)
+    super(thelogger)
     @bc_name = "ntp"
-    @logger = thelogger
   end
 
   def create_proposal
@@ -25,6 +25,12 @@ class NtpService < ServiceObject
     base = super
     @logger.debug("NTP create_proposal: exiting")
     base
+  end
+
+  def validate_proposal_after_save proposal
+    validate_one_for_role proposal, "ntp-server"
+
+    super
   end
 
   def transition(inst, name, state)
