@@ -15,13 +15,20 @@
 # limitations under the License.
 #
 
-if node["roles"].include?("ntp-client")
-  unless Chef::Config[:solo]
-    env_filter = " AND environment:#{node[:ntp][:config][:environment]}"
-    servers = search(:node, "roles:ntp\\-server#{env_filter}")
-  end
+node[:ntp][:external_servers].delete_if {|n| n.empty? }
+
+if ntp_servers = node[:ntp][:external_servers].empty?
+
   ntp_servers = nil
-  ntp_servers = servers.map {|n| n["fqdn"] } unless servers.nil?
+  if node["roles"].include?("ntp-client")
+  
+    unless Chef::Config[:solo]
+      env_filter = " AND environment:#{node[:ntp][:config][:environment]}"
+      servers = search(:node, "roles:ntp\\-server#{env_filter}")
+    end
+    ntp_servers = servers.map {|n| n["fqdn"] } unless servers.nil?
+  end
+
 else
   ntp_servers = node[:ntp][:external_servers]
 end
@@ -68,7 +75,7 @@ else
     mode 0644
     source "ntp.conf.erb"
     variables(:ntp_servers => ntp_servers,
-            :driftfile => driftfile)
+              :driftfile => driftfile)
     notifies :restart, "service[ntp]"
   end
 
