@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 name "ntp-client"
 description "NTP Client Role - NTP client for the cloud"
 run_list(

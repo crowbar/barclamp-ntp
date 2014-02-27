@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 def upgrade ta, td, a, d
   a.delete 'admin_ip_eval'
   return a, d
