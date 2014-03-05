@@ -26,7 +26,7 @@ class NtpService < ServiceObject
       {
         "ntp-server" => {
           "unique" => true,
-          "count" => 1,
+          "count" => -1,
           "admin" => true
         },
         "ntp-client" => {
@@ -46,7 +46,7 @@ class NtpService < ServiceObject
   end
 
   def validate_proposal_after_save proposal
-    validate_one_for_role proposal, "ntp-server"
+    validate_at_least_n_for_role proposal, "ntp-server", 1
 
     super
   end
