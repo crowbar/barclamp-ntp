@@ -15,15 +15,16 @@
 # limitations under the License.
 #
 
-if node["roles"].include?("ntp-client")
-  unless Chef::Config[:solo]
-    env_filter = " AND environment:#{node[:ntp][:config][:environment]}"
-    servers = search(:node, "roles:ntp\\-server#{env_filter}")
-  end
-  ntp_servers = nil
-  ntp_servers = servers.map {|n| n["fqdn"] } unless servers.nil?
+unless Chef::Config[:solo]
+  env_filter = " AND environment:#{node[:ntp][:config][:environment]}"
+  servers = search(:node, "roles:ntp\\-server#{env_filter}")
 else
-  ntp_servers = node[:ntp][:external_servers]
+  servers = []
+end
+ntp_servers = nil
+ntp_servers = servers.map {|n| n["fqdn"] } unless servers.nil?
+if node["roles"].include?("ntp-server")
+  ntp_servers += node[:ntp][:external_servers]
 end
 
 if node[:platform]=="windows"

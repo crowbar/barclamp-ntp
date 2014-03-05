@@ -1,0 +1,17 @@
+# NTP synchronization example with 
+# 2 external servers (E), 2 cloud servers (S) and 3 clients (C)
+# render with dot -Tsvg doc/ntp.dot -o doc/ntp.svg
+
+digraph G {
+  {E1 E2} -> {S1 S2}
+
+  subgraph servers {
+    rank="same";
+    S1 -> S2 -> S1
+  }
+
+  {S1 S2} -> {C1 C2 C3}
+
+  E1[shape=square]
+  E2[shape=square]
+}
