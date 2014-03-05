@@ -27,6 +27,7 @@ servers.each do |n|
 end
 if node["roles"].include?("ntp-server")
   ntp_servers += node[:ntp][:external_servers]
+  is_server = true
 end
 
 if node[:platform]=="windows"
@@ -71,6 +72,8 @@ else
     mode 0644
     source "ntp.conf.erb"
     variables(:ntp_servers => ntp_servers,
+            :is_server => is_server,
+            :fudgevalue => 10,
             :driftfile => driftfile)
     notifies :restart, "service[ntp]"
   end
