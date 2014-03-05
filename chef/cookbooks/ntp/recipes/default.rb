@@ -21,8 +21,10 @@ unless Chef::Config[:solo]
 else
   servers = []
 end
-ntp_servers = nil
-ntp_servers = servers.map {|n| n["fqdn"] } unless servers.nil?
+ntp_servers = []
+servers.each do |n|
+  ntp_servers.push n[:crowbar][:network][:admin][:address] if n.name != node.name
+end
 if node["roles"].include?("ntp-server")
   ntp_servers += node[:ntp][:external_servers]
 end
