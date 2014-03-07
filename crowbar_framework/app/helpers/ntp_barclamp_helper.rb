@@ -16,18 +16,4 @@
 #
 
 module NtpBarclampHelper
-  def ntp_role_contraints
-    {
-      "ntp-server" => {
-        "unique" => true,
-        "count" => 1,
-        "admin" => true
-      },
-      "ntp-client" => {
-        "unique" => true,
-        "count" => -1,
-        "admin" => true
-      }
-    }
-  end
 end
