@@ -21,6 +21,25 @@ class NtpService < ServiceObject
     @bc_name = "ntp"
   end
 
+  class << self
+    def role_constraints
+      @role_constraints ||= begin
+        {
+          "ntp-server" => {
+            "unique" => true,
+            "count" => 1,
+            "admin" => true
+          },
+          "ntp-client" => {
+            "unique" => true,
+            "count" => -1,
+            "admin" => true
+          }
+        }
+      end
+    end
+  end
+
   def create_proposal
     @logger.debug("NTP create_proposal: entering")
     base = super
