@@ -23,20 +23,18 @@ class NtpService < ServiceObject
 
   class << self
     def role_constraints
-      @role_constraints ||= begin
-        {
-          "ntp-server" => {
-            "unique" => true,
-            "count" => 1,
-            "admin" => true
-          },
-          "ntp-client" => {
-            "unique" => true,
-            "count" => -1,
-            "admin" => true
-          }
+      {
+        "ntp-server" => {
+          "unique" => true,
+          "count" => 1,
+          "admin" => true
+        },
+        "ntp-client" => {
+          "unique" => true,
+          "count" => -1,
+          "admin" => true
         }
-      end
+      }
     end
   end
 
