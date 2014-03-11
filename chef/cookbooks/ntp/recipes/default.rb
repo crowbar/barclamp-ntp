@@ -15,15 +15,19 @@
 # limitations under the License.
 #
 
-if node["roles"].include?("ntp-client")
-  unless Chef::Config[:solo]
-    env_filter = " AND environment:#{node[:ntp][:config][:environment]}"
-    servers = search(:node, "roles:ntp\\-server#{env_filter}")
-  end
-  ntp_servers = nil
-  ntp_servers = servers.map {|n| n["fqdn"] } unless servers.nil?
+unless Chef::Config[:solo]
+  env_filter = " AND environment:#{node[:ntp][:config][:environment]}"
+  servers = search(:node, "roles:ntp\\-server#{env_filter}")
 else
-  ntp_servers = node[:ntp][:external_servers]
+  servers = []
+end
+ntp_servers = []
+servers.each do |n|
+  ntp_servers.push n[:crowbar][:network][:admin][:address] if n.name != node.name
+end
+if node["roles"].include?("ntp-server")
+  ntp_servers += node[:ntp][:external_servers]
+  is_server = true
 end
 
 if node[:platform]=="windows"
@@ -68,6 +72,8 @@ else
     mode 0644
     source "ntp.conf.erb"
     variables(:ntp_servers => ntp_servers,
+            :is_server => is_server,
+            :fudgevalue => 10,
             :driftfile => driftfile)
     notifies :restart, "service[ntp]"
   end
