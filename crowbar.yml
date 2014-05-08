@@ -16,11 +16,12 @@
 #
 
 barclamp:
-  name: ntp
-  display: NTP
+  name: 'ntp'
+  display: 'NTP'
+  description: 'Network time protocol server'
   version: 0
   member:
-    - crowbar
+    - 'crowbar'
 
 crowbar:
   layout: 1
@@ -31,8 +32,8 @@ crowbar:
 
 debs:
   pkgs:
-    - ntp
+    - 'ntp'
 
 rpms:
   pkgs:
-    - ntp
+    - 'ntp'
