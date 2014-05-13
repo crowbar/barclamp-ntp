@@ -23,4 +23,8 @@ class NtpController < BarclampController
   def initialize_service
     @service_object = NtpService.new logger
   end
+
+  def permitted_params
+    params.require(:ntp)
+  end
 end
