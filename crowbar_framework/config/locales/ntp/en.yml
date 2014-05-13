@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 #
 # Copyright 2011-2013, Dell
 # Copyright 2013-2014, SUSE LINUX Products GmbH
@@ -7,7 +6,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#  http://www.apache.org/licenses/LICENSE-2.0
+#   http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,13 +15,9 @@
 # limitations under the License.
 #
 
-#
-#
-# TODO: Needs to be replaced by https://github.com/basecamp/sub
-#
-#
-
-require File.expand_path("../barclamp_lib", __FILE__)
-@barclamp = "ntp"
-
-main
+en:
+  barclamp:
+    ntp:
+      edit_attributes:
+        external_servers: 'External servers'
+        ip_list_hint: 'A comma-separated list of IP Addresses'

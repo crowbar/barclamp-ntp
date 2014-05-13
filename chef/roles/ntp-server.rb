@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 name "ntp-server"
 description "NTP Server Role - NTP master for the cloud"
 run_list(
