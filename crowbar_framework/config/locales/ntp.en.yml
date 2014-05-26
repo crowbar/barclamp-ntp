@@ -1,6 +1,0 @@
-en:
-  barclamp:
-    ntp:
-      edit_attributes:
-        external_servers: External servers
-        ip_list_hint: A comma-separated list of IP Addresses
