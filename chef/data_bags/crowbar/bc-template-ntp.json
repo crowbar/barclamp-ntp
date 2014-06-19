@@ -9,6 +9,7 @@
   "deployment": {
     "ntp": {
       "crowbar-revision": 0,
+      "crowbar-applied": false,
       "schema-revision": 1,
       "element_states": {
         "ntp-server": [ "readying", "ready", "applying" ],
