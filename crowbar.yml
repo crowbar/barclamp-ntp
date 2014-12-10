@@ -16,11 +16,12 @@
 #
 
 barclamp:
-  name: ntp
-  display: NTP
+  name: 'ntp'
+  display: 'NTP'
   version: 0
+  user_managed: true
   member:
-    - crowbar
+    - 'crowbar'
 
 crowbar:
   layout: 1
@@ -28,11 +29,3 @@ crowbar:
   run_order: 50
   chef_order: 50
   proposal_schema_version: 3
-
-debs:
-  pkgs:
-    - ntp
-
-rpms:
-  pkgs:
-    - ntp
