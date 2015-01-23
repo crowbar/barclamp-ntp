@@ -29,7 +29,8 @@ class NtpService < ServiceObject
           "count" => -1,
           "admin" => true,
           "exclude_platform" => {
-            "suse" => "12.0"
+            "suse" => "12.0",
+            "windows" => "/.*/"
           }
         },
         "ntp-client" => {
