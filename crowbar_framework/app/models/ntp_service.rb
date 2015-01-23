@@ -27,7 +27,10 @@ class NtpService < ServiceObject
         "ntp-server" => {
           "unique" => true,
           "count" => -1,
-          "admin" => true
+          "admin" => true,
+          "exclude_platform" => {
+            "suse" => "12.0"
+          }
         },
         "ntp-client" => {
           "unique" => true,
