@@ -16,6 +16,9 @@ About this barclamp
 -------------------
 
 [![Build Status](https://travis-ci.org/crowbar/barclamp-ntp.svg?branch=master)](https://travis-ci.org/crowbar/barclamp-ntp)
+[![Code Climate](https://codeclimate.com/github/crowbar/barclamp-ntp/badges/gpa.svg)](https://codeclimate.com/github/crowbar/barclamp-ntp)
+[![Test Coverage](https://codeclimate.com/github/crowbar/barclamp-ntp/badges/coverage.svg)](https://codeclimate.com/github/crowbar/barclamp-ntp)
+[![Dependency Status](https://gemnasium.com/crowbar/barclamp-ntp.svg)](https://gemnasium.com/crowbar/barclamp-ntp)
 
 Information for this barclamp is maintained on the [Crowbar Framework Wiki](https://github.com/crowbar/crowbar/wiki)
 
