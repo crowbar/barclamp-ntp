@@ -66,12 +66,16 @@ else
   driftfile = "/var/lib/ntp/drift/ntp.drift" if node[:platform] == "suse"
 
   user "ntp"
+
+  admin_interface = Chef::Recipe::Barclamp::Inventory.get_network_by_type(node, "admin").address
+
   template "/etc/ntp.conf" do
     owner "root"
     group "root"
     mode 0644
     source "ntp.conf.erb"
     variables(:ntp_servers => ntp_servers,
+            :admin_interface => admin_interface,
             :is_server => is_server,
             :fudgevalue => 10,
             :driftfile => driftfile)
