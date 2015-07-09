@@ -62,7 +62,7 @@ class NtpService < ServiceObject
     #
     if state == "discovered"
       @logger.debug("NTP transition: discovered state for #{name} for #{state}")
-      db = ProposalObject.find_proposal "ntp", inst
+      db = Proposal.where(barclamp: "ntp", name: inst).first
       role = RoleObject.find_role_by_name "ntp-config-#{inst}"
 
       if role.override_attributes["ntp"]["elements"]["ntp-server"].nil? or
